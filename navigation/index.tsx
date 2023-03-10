@@ -9,21 +9,18 @@ import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { ColorSchemeName, Pressable } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { Feather } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
+import MapScreen from '../screens/MapScreen';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
-import MapScreen from '../screens/MapScreen';
-import ProfileScreen from '../screens/ProfileScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
+import { AntDesign } from '@expo/vector-icons';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -73,7 +70,7 @@ function BottomTabNavigator() {
         component={TabOneScreen}
         options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
           title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+          tabBarIcon: ({ color }) => <AntDesign name="login" size={24} color={color} />,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('Modal')}
@@ -90,22 +87,40 @@ function BottomTabNavigator() {
           ),
         })}
       />
+
+      <BottomTab.Screen
+        name="TabTwo"
+        component={TabTwoScreen}
+        options={{
+          title: 'Tab Two',
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+        }}
+      />
       <BottomTab.Screen
         name="MapScreen"
         component={MapScreen}
         options={{
-          title: 'MapScreen',
+          title: 'Tab Map',
           tabBarIcon: ({ color }) => <TabBarIcon name="map" color={color} />,
         }}
       />
+
       <BottomTab.Screen
-      name="ProfileScreen"
-      component={ProfileScreen}
-      options={{
-        title:'ProfileScreen',
-        tabBarIcon: ({ color }) => <TabBarIcon name="account" color={color} />,
-      }}/>
+        name="ProfileScreen"
+        component={ProfileScreen}
+        options={{
+          title: 'Tab Profile',
+          tabBarIcon: ({ color }) => <TabBarIcon name="info" color={color} />,
+        }}
+      />
     </BottomTab.Navigator>
+
+
+    
+
+   
+
+   
   );
 }
 
@@ -113,8 +128,8 @@ function BottomTabNavigator() {
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
 function TabBarIcon(props: {
-  name: React.ComponentProps<typeof MaterialCommunityIcons>['name'];
+  name: React.ComponentProps<typeof FontAwesome>['name'];
   color: string;
 }) {
-  return <MaterialCommunityIcons size={30} style={{ marginBottom: -3 }} {...props} />;
+  return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
 }
